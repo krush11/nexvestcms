@@ -10,7 +10,7 @@ const handler = NextAuth({
   },
   providers: [
     CredentialsProvider({
-      name: 'Sanctum Access',
+      name: 'CMS Access',
       credentials: {},
       async authorize(credentials) {
         if (credentials.password === process.env.PASSWORD)
@@ -21,7 +21,7 @@ const handler = NextAuth({
     })
   ],
   pages: {
-    signIn: '/sanctum'
+    signIn: '/signin'
   }
 })
 

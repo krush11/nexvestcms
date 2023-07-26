@@ -2,11 +2,14 @@
 
 import AppNavbar from "@/common/Navbar";
 import AppHeader from "@/common/Header";
-import { SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
-export default function Layout({ children, session }) {
-  return (
-    <SessionProvider session={session}>
+export default function Layout({ children }) {
+  const { status } = useSession();
+
+  if (status === 'authenticated')
+    return (
       <div className="flex flex-row w-screen">
         <AppNavbar />
         <div className="p-4 w-full">
@@ -16,6 +19,8 @@ export default function Layout({ children, session }) {
           </div>
         </div>
       </div>
-    </SessionProvider>
-  )
+    );
+
+  if (status === 'unauthenticated')
+    redirect('/signin');
 }

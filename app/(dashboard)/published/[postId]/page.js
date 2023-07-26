@@ -11,9 +11,7 @@ async function fetchPost(postId) {
 export default async function ({ params: { postId } }) {
   const post = await fetchPost(postId)
 
-  return (
-    <PageClient post={post} />
-  )
+  return <PageClient post={post} />
 }
 
 export async function generateMetadata({ params: { postId } }) {

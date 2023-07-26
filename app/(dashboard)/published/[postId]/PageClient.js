@@ -41,7 +41,7 @@ export default function Page({ post }) {
     <>
       <div>
         <div className="grid grid-cols-4 gap-4 mb-4">
-          <div className="bg-zinc-900 py-5 px-6 rounded-lg">
+          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Total reads</div>
@@ -50,7 +50,7 @@ export default function Page({ post }) {
               <CalendarMonthRounded fontSize='large' />
             </div>
           </div>
-          <div className="bg-zinc-900 py-5 px-6 rounded-lg">
+          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Reads today</div>
@@ -65,7 +65,7 @@ export default function Page({ post }) {
               <span>&nbsp;since yesterday</span>
             </div>
           </div>
-          <div className="bg-zinc-900 py-5 px-6 rounded-lg">
+          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Total traffic</div>
@@ -75,7 +75,7 @@ export default function Page({ post }) {
             </div>
             <div>a</div>
           </div>
-          <div className="bg-zinc-900 py-5 px-6 rounded-lg">
+          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Total traffic</div>
@@ -87,7 +87,7 @@ export default function Page({ post }) {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 mb-4">
-          <div className='col-span-1 dark:bg-zinc-900 py-5 px-6 rounded-lg'>
+          <div className='col-span-1 dark:bg-[#1e293b] py-5 px-6 rounded-lg'>
             <div className='uppercase opacity-75 text-sm'>Manage Post</div>
             <div className='flex flex-wrap justify-center mt-4'>
               <a href={`https://nexvest.vercel.app/blog/${post._id}`} className="p-8 m-2 dark:hover:bg-neutral-800 rounded-lg">
@@ -98,7 +98,7 @@ export default function Page({ post }) {
               </a>
             </div>
           </div>
-          <div className='col-span-2 dark:bg-zinc-900 py-5 px-6 rounded-lg'>
+          <div className='col-span-2 dark:bg-[#1e293b] py-5 px-6 rounded-lg'>
             <canvas id="read-chart" className='h-full' aria-label="Posts read chart" role="img" />
           </div>
         </div>

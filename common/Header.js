@@ -16,9 +16,8 @@ export default function Component() {
     <div className="flex flex-row justify-between items-center">
       <div className="uppercase">{title}</div>
       <button onClick={() => signOut()}
-        className="dark:bg-neutral-900 cursor-pointer p-2.5 rounded-full">
-        <PowerSettingsNewOutlined color="error"
-          className="" />
+        className="dark:bg-[#1e293b] cursor-pointer p-2.5 rounded-full">
+        <PowerSettingsNewOutlined color="error" />
       </button>
     </div>
   )

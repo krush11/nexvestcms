@@ -22,14 +22,15 @@ export default function Component() {
   });
 
   return (
-    <aside className={`h-screen border-r dark:bg-zinc-900 dark:border-gray-700 min-w-[300px] w-[300px] max-[1300px]:min-w-fit`}>
+    <aside className={`h-screen border-r dark:border-gray-700 min-w-[300px] w-[300px] max-[1300px]:min-w-fit`}>
       <div className="cursor-default tracking-tighter uppercase font-bold text-2xl text-blue-600 m-6">
-        Nexvest</div>
+        Nexvest
+        </div>
       <div className="my-4 px-2">
         {navbarItems.map((item, index) => {
           return <Link href={item.link} aria-label={item.label} key={item.label} onClick={() => setActive(index)}
             className={`flex flex-row items-center font-light rounded-lg p-3  text-lg 
-          ${index === active && "dark:bg-zinc-800 font-semibold"}`}>
+          ${index === active && "dark:bg-[#292e4e] font-semibold"}`}>
             <item.Icon className='mr-3' classes={{ root: "stroke-0" }} />
             <div className="capitalize" >{item.label}</div>
           </Link>
