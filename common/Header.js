@@ -8,9 +8,8 @@ export default function Component() {
   const [title, setTitle] = useState(null);
 
   useEffect(() => {
-    setTitle(document.title)
-  }, [])
-
+    setTitle(window.document.title)
+  })
 
   return (
     <div className="flex flex-row justify-between items-center">
