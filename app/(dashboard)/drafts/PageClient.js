@@ -1,6 +1,16 @@
-import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
+'use client'
+
+import { DeleteOutlined, EditOutlined } from '@mui/icons-material';
+import Link from 'next/link';
 
 export default function Page({ draftList }) {
+
+  async function deleteDraft(draft) {
+    await fetch(`/api/drafts?draftId=${draft._id}`, {
+      method: 'DELETE',
+    }).then(res => res.json())
+      .then(data => window.location.reload())
+  }
 
   return (
     <>
@@ -24,8 +34,13 @@ export default function Page({ draftList }) {
                       year: 'numeric', month: 'long', day: 'numeric',
                     })}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right font-medium hover:text-blue-600 cursor-pointer">
-                    <OpenInNewRoundedIcon />
+                  <td className="px-6 py-4 whitespace-nowrap text-right font-medium cursor-pointer">
+                    <Link className='ml-2 text-blue-300 hover:text-blue-600' href={`/drafts/${draft._id}`}>
+                      <EditOutlined />
+                    </Link>
+                    <button type='button' className='ml-2 text-red-300 hover:text-red-600' onClick={() => { deleteDraft(draft) }} >
+                      <DeleteOutlined />
+                    </button>
                   </td>
                 </tr>
               ))}
