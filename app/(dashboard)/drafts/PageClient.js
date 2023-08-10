@@ -1,9 +1,11 @@
 'use client'
 
-import { DeleteOutlined, EditOutlined } from '@mui/icons-material';
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from '@mui/icons-material';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Page({ draftList }) {
+  const [confirmDraftDeletion, setConfirmDraftDeletion] = useState(false)
 
   async function deleteDraft(draft) {
     await fetch(`/api/drafts?draftId=${draft._id}`, {
@@ -38,9 +40,20 @@ export default function Page({ draftList }) {
                     <Link className='ml-2 text-blue-300 hover:text-blue-600' href={`/drafts/${draft._id}`}>
                       <EditOutlined />
                     </Link>
-                    <button type='button' className='ml-2 text-red-300 hover:text-red-600' onClick={() => { deleteDraft(draft) }} >
-                      <DeleteOutlined />
-                    </button>
+                    {!confirmDraftDeletion &&
+                      <button type='button' className='ml-2 text-red-300 hover:text-red-600' onClick={() => setConfirmDraftDeletion(true)} >
+                        <DeleteOutlined />
+                      </button>}
+                    {confirmDraftDeletion &&
+                      <>
+                        <button type='button' className='ml-2 text-red-300 hover:text-red-600' onClick={() => { deleteDraft(draft) }} >
+                          <CheckOutlined />
+                        </button>
+                        <button type='button' className='ml-2 text-red-300 hover:text-red-600' onClick={() => setConfirmDraftDeletion(false)} >
+                          <CloseOutlined />
+                        </button>
+                      </>
+                    }
                   </td>
                 </tr>
               ))}

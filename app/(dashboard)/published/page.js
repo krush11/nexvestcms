@@ -2,7 +2,7 @@ import dbConnect from '@/lib/dbConnect';
 import PageClient from './PageClient';
 import Posts from '@/models/posts';
 
-export const revalidate = 60 * 60;
+export const revalidate = 60;
 
 async function fetchAllPosts() {
   await dbConnect();
