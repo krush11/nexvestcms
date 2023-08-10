@@ -1,7 +1,10 @@
 'use client'
 
 import Link from "next/link";
-import { HomeOutlined, PendingActionsOutlined, InventoryOutlined, AddCircleOutlineOutlined } from '@mui/icons-material';
+import {
+  HomeOutlined, PendingActionsOutlined, InventoryOutlined,
+  AddCircleOutlineOutlined, FeedOutlined
+} from '@mui/icons-material';
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -10,6 +13,7 @@ const navbarItems = [
   { link: '/published', Icon: InventoryOutlined, label: 'published' },
   { link: '/drafts', Icon: PendingActionsOutlined, label: 'drafts' },
   { link: '/create-new-blog', Icon: AddCircleOutlineOutlined, label: 'create new blog' },
+  { link: '/subscriptions', Icon: FeedOutlined, label: 'subscriptions' },
 ];
 
 export default function Component() {
@@ -19,13 +23,14 @@ export default function Component() {
     if (pathname.split('/')[1] === 'published') return 1;
     if (pathname.split('/')[1] === 'drafts') return 2;
     if (pathname.split('/')[1] === 'create-new-blog') return 3;
+    if (pathname.split('/')[1] === 'subscriptions') return 4;
   });
 
   return (
     <aside className={`h-screen border-r dark:border-gray-700 min-w-[300px] w-[300px] max-[1300px]:min-w-fit`}>
       <div className="cursor-default tracking-tighter uppercase font-bold text-2xl text-blue-600 m-6">
         Nexvest
-        </div>
+      </div>
       <div className="my-4 px-2">
         {navbarItems.map((item, index) => {
           return <Link href={item.link} aria-label={item.label} key={item.label} onClick={() => setActive(index)}
