@@ -2,7 +2,8 @@ import dbConnect from "@/lib/dbConnect";
 import Posts from "@/models/posts";
 import PageClient from "./PageClient";
 
-export const revalidate = 60 * 60 * 24;
+// Kept 1 hr so that data dosen't get stale and doesn't get updated too frequently
+export const revalidate = 60 * 60;
 
 async function fetchPost(postId) {
   await dbConnect();

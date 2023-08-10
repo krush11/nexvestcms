@@ -2,13 +2,14 @@ import dbConnect from '@/lib/dbConnect';
 import PageClient from './PageClient';
 import Posts from '@/models/posts';
 
-export const revalidate = 60;
+// Kept 0 so that before the post gets updated at Nexvest, it can be tested from here
+export const revalidate = 0;
 
 async function fetchAllPosts() {
   await dbConnect();
   const draftsList = await Posts.find()
     .select('title stats updatedAt')
-    .sort({ updatedAt: 1 });
+    .sort({ updatedAt: -1 });
   return JSON.parse(JSON.stringify(draftsList));
 }
 
