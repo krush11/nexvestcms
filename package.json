@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-sesv2": "^3.388.0",
     "@emotion/react": "^11.11.1",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -19,6 +20,7 @@
     "@mui/material": "^5.14.1",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "10.4.14",
+    "aws-crt": "^1.17.1",
     "chart.js": "^4.3.1",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
