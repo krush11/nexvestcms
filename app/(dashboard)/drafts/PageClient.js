@@ -32,7 +32,7 @@ export default function Page({ draftList }) {
                 <tr key={draft._id}>
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-800 dark:text-gray-200">{draft.title}</td>
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-800 dark:text-gray-200">
-                    {new Date(draft.updatedAt).toLocaleDateString('en-GB', {
+                    {new Date(draft.createdAt).toLocaleDateString('en-GB', {
                       year: 'numeric', month: 'long', day: 'numeric',
                     })}
                   </td>

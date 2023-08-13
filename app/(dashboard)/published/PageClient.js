@@ -12,7 +12,7 @@ export default function Page({ postList }) {
               <tr>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase">Title</th>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase">Views</th>
-                <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase">Last updated at</th>
+                <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase">Created at</th>
                 <th scope="col" className="px-6 py-3 text-right text-sm font-medium text-gray-500 uppercase">Manage</th>
               </tr>
             </thead>
@@ -22,7 +22,7 @@ export default function Page({ postList }) {
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-800 dark:text-gray-200">{post.title}</td>
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-800 dark:text-gray-200">{post.stats.totalViews}</td>
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-800 dark:text-gray-200">
-                    {new Date(post.updatedAt).toLocaleDateString('en-GB', {
+                    {new Date(post.createdAt).toLocaleDateString('en-GB', {
                       year: 'numeric', month: 'long', day: 'numeric',
                     })}
                   </td>

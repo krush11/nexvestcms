@@ -8,8 +8,8 @@ export const revalidate = 0;
 async function fetchAllPosts() {
   await dbConnect();
   const draftsList = await Posts.find()
-    .select('title stats updatedAt')
-    .sort({ updatedAt: -1 });
+    .select('title stats createdAt')
+    .sort({ createdAt: -1 });
   return JSON.parse(JSON.stringify(draftsList));
 }
 

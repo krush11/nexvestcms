@@ -9,7 +9,7 @@ async function fetchAllDrafts() {
   await dbConnect();
   const draftsList = await Drafts.find()
     .select('-content -description -tags')
-    .sort({ updatedAt: -1 });
+    .sort({ createdAt: -1 });
   return JSON.parse(JSON.stringify(draftsList));
 }
 
