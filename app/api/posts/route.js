@@ -41,15 +41,9 @@ export async function PUT(req) {
 
       const command = new SendEmailCommand(params);
       const response = await client.send(command);
-      console.log(email, response.$metadata.httpStatusCode)
     })
-
-    // client.sendEmail({
-
-
     return NextResponse.json(post, { status: 201 });
   } catch (err) {
     console.log(err.errors);
   }
-
 }
