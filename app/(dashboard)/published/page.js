@@ -3,7 +3,7 @@ import PageClient from './PageClient';
 import Posts from '@/models/posts';
 
 // Kept 0 so that before the post gets updated at Nexvest, it can be tested from here
-export const revalidate = 0;
+export const revalidate = 5 * 60;
 
 async function fetchAllPosts() {
   await dbConnect();
