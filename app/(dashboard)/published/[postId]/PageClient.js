@@ -3,45 +3,51 @@
 import {
   MarkChatReadRounded, CalendarMonthRounded, RemoveRedEyeOutlined
 } from '@mui/icons-material';
-import Chart from 'chart.js/auto'
-import { useEffect } from 'react';
+import { CategoryScale, Chart as ChartJS, Filler, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from 'chart.js'
+import { Line } from 'react-chartjs-2'
 
-export default function Page({ post }) {
+export default function PageClient({ post }) {
   const readsToday = post.stats.viewHistory[new Date().getMonth()][new Date().getDate() - 1];
   const readsYesterday = post.stats.viewHistory[new Date().getMonth()][new Date().getDate() - 2];
   const pctIncreaseSinceYesterday = parseFloat((readsToday - readsYesterday) / readsYesterday * 100).toFixed(2);
+  let delayed
 
-  useEffect(() => {
-    new Chart(document.getElementById('read-chart'), {
-      type: 'line',
-      data: {
-        labels: () => {
-          const past7Days = [...Array(7).keys()].map(index => {
-            const date = new Date();
-            date.setDate(date.getDate() - index);
+  const past30DaysLabels = [...Array(post.stats.viewHistory[new Date().getMonth()].length).keys()].map(index => {
+    const date = new Date();
+    date.setDate(date.getDate() - index);
+    return date.toLocaleString('en-GB', { day: 'numeric', month: 'short' })
+  }).reverse();
 
-            return date;
-          });
-          console.log(past7Days);
-          return past7Days
-        },
-        datasets: [{
-          label: 'Reads',
-          data: () => {
-            const past7Days = post.stats.viewHistory[new Date().getMonth()].slice(new Date().getDate() - 7, new Date().getDate());
-            console.log(past7Days);
-            return past7Days
-          }
-        }]
-      }
-    })
-  })
+  const currentMonthData = post.stats.viewHistory[new Date().getMonth()];
+  const pastMonthData = post.stats.viewHistory[new Date().getMonth() - 1];
+
+  console.log(currentMonthData, pastMonthData);
+
+  // Create an array of 30 days of data, starting with the current month and then the previous month
+  const past30DaysData = [...Array(post.stats.viewHistory[new Date().getMonth()].length).keys()].map(index => {
+    const date = new Date();
+    date.setDate(date.getDate() - index);
+    return date.getMonth() === new Date().getMonth() ? currentMonthData[date.getDate() - 1] : pastMonthData[date.getDate() - 1]
+  }).reverse();
+
+
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Filler,
+    Legend
+  );
 
   return (
     <>
       <div>
         <div className="grid grid-cols-4 gap-4 mb-4">
-          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
+          <div className="bg-slate-800 py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Total reads</div>
@@ -50,7 +56,7 @@ export default function Page({ post }) {
               <CalendarMonthRounded fontSize='large' />
             </div>
           </div>
-          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
+          <div className="bg-slate-800 py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Reads today</div>
@@ -65,7 +71,7 @@ export default function Page({ post }) {
               <span>&nbsp;since yesterday</span>
             </div>
           </div>
-          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
+          <div className="bg-slate-800 py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Total traffic</div>
@@ -75,7 +81,7 @@ export default function Page({ post }) {
             </div>
             <div>a</div>
           </div>
-          <div className="bg-[#1e293b] py-5 px-6 rounded-lg">
+          <div className="bg-slate-800 py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
                 <div className="uppercase text-sm opacity-75">Total traffic</div>
@@ -87,10 +93,18 @@ export default function Page({ post }) {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 mb-4">
-          <div className='col-span-1 dark:bg-[#1e293b] py-5 px-6 rounded-lg'>
+          <div className='col-span-1 dark:bg-slate-800 py-5 px-6 rounded-lg'>
             <div className='uppercase opacity-75 text-sm'>Manage Post</div>
-            <div className='flex flex-wrap justify-center mt-4'>
-              <a href={`https://nexvest.vercel.app/blog/${post._id}`} className="p-8 m-2 dark:hover:bg-neutral-800 rounded-lg">
+            <div className='grid grid-cols-3 mt-4'>
+              <a href={`https://nexvest.vercel.app/blog/${post._id}`}
+                className="px-4 py-6 m-2 text-center border-2 border-slate-900 dark:hover:border-slate-500 bg-slate-900 rounded-lg">
+                <button>
+                  <RemoveRedEyeOutlined fontSize='large' color='info' />
+                  <div>Preview Post</div>
+                </button>
+              </a>
+              <a href={`https://nexvest.vercel.app/blog/${post._id}`}
+                className="px-4 py-6 m-2 text-center border-2 border-slate-900 dark:hover:border-slate-500 bg-slate-900 rounded-lg">
                 <button>
                   <RemoveRedEyeOutlined fontSize='large' color='info' />
                   <div>Preview Post</div>
@@ -98,8 +112,34 @@ export default function Page({ post }) {
               </a>
             </div>
           </div>
-          <div className='col-span-2 dark:bg-[#1e293b] py-5 px-6 rounded-lg'>
-            <canvas id="read-chart" className='h-full' aria-label="Posts read chart" role="img" />
+          <div className='col-span-2 dark:bg-slate-800 py-5 px-6 rounded-lg'>
+            <div className='uppercase opacity-75 text-sm'>Blog performance</div>
+            <Line data={{
+              labels: past30DaysLabels,
+              datasets: [{
+                label: 'Views',
+                data: past30DaysData,
+                borderColor: '#3B82F6',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                fill: true
+              }]
+            }}
+              options={{
+                responsive: true,
+                animation: {
+                  onComplete: () => {
+                    delayed = true;
+                  },
+                  delay: (context) => {
+                    let delay = 0;
+                    if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                      delay = context.dataIndex * 100 + context.datasetIndex * 100;
+                    }
+                    return delay;
+                  },
+                },
+                tension: 0.4,
+              }} />
           </div>
         </div>
       </div>

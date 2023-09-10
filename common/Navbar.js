@@ -35,7 +35,7 @@ export default function Component() {
         {navbarItems.map((item, index) => {
           return <Link href={item.link} aria-label={item.label} key={item.label} onClick={() => setActive(index)}
             className={`flex flex-row items-center font-light rounded-lg p-3  text-lg 
-          ${index === active && "dark:bg-[#292e4e] font-semibold"}`}>
+          ${index === active && "dark:bg-blue-950 font-semibold"}`}>
             <item.Icon className='mr-3' classes={{ root: "stroke-0" }} />
             <div className="capitalize" >{item.label}</div>
           </Link>

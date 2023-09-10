@@ -21,7 +21,7 @@ export default function PageClient() {
         Welcome Back!
       </div>
       <form className="mt-8 w-2/3" onSubmit={checkSecret}>
-        <div className="text-sm text-[#93a2b7]">
+        <div className="text-sm text-slate-400">
           Enter the secret key to get access to Nexvest CMS Portal
         </div>
         <input className="mt-2 w-full block py-3 px-4 border border-gray-200 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 focus:outline-none"

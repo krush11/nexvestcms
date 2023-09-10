@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className='dark'>
-      <body className={akshar.className + ' dark:bg-[#0f172a] dark:text-neutral-200'}>
+      <body className={akshar.className + ' dark:bg-slate-900 dark:text-neutral-200'}>
         <NextAuthProvider>
           {children}
         </NextAuthProvider>
