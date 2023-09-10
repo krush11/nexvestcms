@@ -9,8 +9,11 @@ import { Line } from 'react-chartjs-2'
 export default function PageClient({ post }) {
   const readsToday = post.stats.viewHistory[new Date().getMonth()][new Date().getDate() - 1];
   const readsYesterday = post.stats.viewHistory[new Date().getMonth()][new Date().getDate() - 2];
+  const readsLastMonth = post.stats.viewHistory[new Date().getMonth() - 1].reduce((a, b) => a + b, 0);
+  const readsCurrentMonth = post.stats.viewHistory[new Date().getMonth()].reduce((a, b) => a + b, 0);
+  const pctIncreaseSinceLastMonth = parseFloat((readsCurrentMonth - readsLastMonth) / readsLastMonth * 100).toFixed(2);
   const pctIncreaseSinceYesterday = parseFloat((readsToday - readsYesterday) / readsYesterday * 100).toFixed(2);
-  let delayed
+  let delayed;
 
   const past30DaysLabels = [...Array(post.stats.viewHistory[new Date().getMonth()].length).keys()].map(index => {
     const date = new Date();
@@ -20,10 +23,6 @@ export default function PageClient({ post }) {
 
   const currentMonthData = post.stats.viewHistory[new Date().getMonth()];
   const pastMonthData = post.stats.viewHistory[new Date().getMonth() - 1];
-
-  console.log(currentMonthData, pastMonthData);
-
-  // Create an array of 30 days of data, starting with the current month and then the previous month
   const past30DaysData = [...Array(post.stats.viewHistory[new Date().getMonth()].length).keys()].map(index => {
     const date = new Date();
     date.setDate(date.getDate() - index);
@@ -74,12 +73,16 @@ export default function PageClient({ post }) {
           <div className="bg-slate-800 py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
               <div>
-                <div className="uppercase text-sm opacity-75">Total traffic</div>
-                <div className='text-3xl text-white'>{post.stats.totalViews}</div>
+                <div className="uppercase text-sm opacity-75">Reads this month</div>
+                <div className='text-3xl text-white'>{readsCurrentMonth}</div>
               </div>
               <MarkChatReadRounded fontSize='large' />
             </div>
-            <div>a</div>
+            <div>
+              {!pctIncreaseSinceLastMonth && <span className="text-gray-500">0%</span>}
+              {pctIncreaseSinceLastMonth > 0 && <span className="text-green-500">{pctIncreaseSinceLastMonth}%</span>}
+              {pctIncreaseSinceLastMonth <= 0 && <span className="text-red-500">{pctIncreaseSinceLastMonth}%</span>}
+            </div>
           </div>
           <div className="bg-slate-800 py-5 px-6 rounded-lg">
             <div className="flex flex-row justify-between">
@@ -97,14 +100,14 @@ export default function PageClient({ post }) {
             <div className='uppercase opacity-75 text-sm'>Manage Post</div>
             <div className='grid grid-cols-3 mt-4'>
               <a href={`https://nexvest.vercel.app/blog/${post._id}`}
-                className="px-4 py-6 m-2 text-center border-2 border-slate-900 dark:hover:border-slate-500 bg-slate-900 rounded-lg">
+                className="px-4 py-6 m-2 text-center border-2 border-slate-900 dark:hover:border-slate-500 transition-all bg-slate-900 rounded-lg">
                 <button>
                   <RemoveRedEyeOutlined fontSize='large' color='info' />
                   <div>Preview Post</div>
                 </button>
               </a>
               <a href={`https://nexvest.vercel.app/blog/${post._id}`}
-                className="px-4 py-6 m-2 text-center border-2 border-slate-900 dark:hover:border-slate-500 bg-slate-900 rounded-lg">
+                className="px-4 py-6 m-2 text-center border-2 border-slate-900 dark:hover:border-slate-500 transition-all bg-slate-900 rounded-lg">
                 <button>
                   <RemoveRedEyeOutlined fontSize='large' color='info' />
                   <div>Preview Post</div>
@@ -117,7 +120,7 @@ export default function PageClient({ post }) {
             <Line data={{
               labels: past30DaysLabels,
               datasets: [{
-                label: 'Views',
+                label: 'Reads',
                 data: past30DaysData,
                 borderColor: '#3B82F6',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
